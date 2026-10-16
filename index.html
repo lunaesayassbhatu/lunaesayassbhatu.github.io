@@ -26,7 +26,7 @@
 :root[data-theme="dark"] { --surface: #0d1117; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
-.toolbar { position: fixed; top: 16px; right: 16px; display: flex; align-items: center; gap: 10px; z-index: 10; }
+.toolbar { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; gap: 10px; z-index: 10; }
 .toolbar button {
   font: 600 13px -apple-system, "Segoe UI", Roboto, sans-serif; cursor: pointer;
   background: var(--surface); border: 1px solid var(--rule); color: var(--text);
@@ -65,7 +65,7 @@ a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3
 a:hover { text-decoration-thickness: 2px; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
-.page { max-width: 860px; margin: 24px auto; padding: 48px 24px 72px; background: var(--bg); box-shadow: 0 1px 3px rgba(28,36,48,.08), 0 8px 24px rgba(28,36,48,.06); border-radius: 10px; }
+.page { position: relative; max-width: 860px; margin: 24px auto; padding: 48px 24px 72px; background: var(--bg); box-shadow: 0 1px 3px rgba(28,36,48,.08), 0 8px 24px rgba(28,36,48,.06); border-radius: 10px; }
 
 header { padding-bottom: 20px; border-bottom: 2px solid var(--accent); }
 h1 {
@@ -120,6 +120,8 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 
 @media (max-width: 640px) {
   .page { padding: 32px 18px 56px; }
+  .toolbar { position: static; justify-content: flex-end; margin-bottom: 16px; }
+  .pdf-btn span { display: none; }
   .entry { grid-template-columns: 1fr; gap: 2px; }
   .when { order: 2; padding: 0 0 6px; }
   .when .where { display: inline; }
@@ -141,17 +143,17 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 </style>
 </head>
 <body>
-<div class="toolbar">
-  <button type="button" class="pdf-btn" id="pdfBtn" title="Download as PDF">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M12 15l-4.5-4.5M12 15l4.5-4.5"/><path d="M4 18v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg>
-    Download PDF
-  </button>
-  <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
-    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
-    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-  </button>
-</div>
 <main class="page">
+  <div class="toolbar">
+    <button type="button" class="pdf-btn" id="pdfBtn" title="Download as PDF">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M12 15l-4.5-4.5M12 15l4.5-4.5"/><path d="M4 18v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg>
+      <span>Download PDF</span>
+    </button>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+    </button>
+  </div>
 
   <header>
     <h1>Luna Issaias Sbahtu</h1>
