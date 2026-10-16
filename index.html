@@ -18,16 +18,12 @@
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+/* Dark mode only darkens the outer page background -- the resume content
+   card, its text, and all accent colors stay exactly as in light mode. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #161b22; --surface: #0d1117; --text: #e6edf3; --muted: #9aa7b5;
-    --rule: #2d3745; --accent: #6fa8dc; --link: #7cc1ff; color-scheme: dark;
-  }
+  :root:not([data-theme="light"]) { --surface: #0d1117; }
 }
-:root[data-theme="dark"] {
-  --bg: #161b22; --surface: #0d1117; --text: #e6edf3; --muted: #9aa7b5;
-  --rule: #2d3745; --accent: #6fa8dc; --link: #7cc1ff; color-scheme: dark;
-}
+:root[data-theme="dark"] { --surface: #0d1117; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
 .theme-toggle {
@@ -41,9 +37,13 @@ html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 .theme-toggle .moon { display: block; }
 :root[data-theme="dark"] .theme-toggle .sun { display: block; }
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+/* the button sits on the page background (not the card), so only its own
+   border/icon color needs to flip for contrast -- not the card or its text */
+:root[data-theme="dark"] .theme-toggle { color: #cfd8e3; border-color: #2d3745; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
   :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle { color: #cfd8e3; border-color: #2d3745; }
 }
 @media print { .theme-toggle { display: none; } }
 body {
