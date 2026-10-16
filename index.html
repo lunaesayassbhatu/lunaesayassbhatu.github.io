@@ -21,9 +21,9 @@
 /* Dark mode only darkens the outer page background -- the resume content
    card, its text, and all accent colors stay exactly as in light mode. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --surface: #0d1117; }
+  :root:not([data-theme="light"]) { --surface: #0d1b2e; }
 }
-:root[data-theme="dark"] { --surface: #0d1117; }
+:root[data-theme="dark"] { --surface: #0d1b2e; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
 .toolbar { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; gap: 10px; z-index: 10; }
