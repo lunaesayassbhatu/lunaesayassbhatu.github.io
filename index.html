@@ -8,152 +8,90 @@
 :root {
   --bg: #ffffff;
   --surface: #0d1b2e;
-  --text: #1c2430;
-  --muted: #5b6676;
-  --rule: #cfd8e3;
+  --text: #000000;
+  --muted: #444444;
+  --rule: #bbbbbb;
   --accent: #1f4e79;
-  --link: #0b5cad;
+  --link: #1f4e79;
   color-scheme: light;
   box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-/* Dark mode is the default outer-page background; light is the explicit
-   opt-out. Either way, only the outer background changes -- the resume
-   content card, its text, and all accent colors stay the same. */
 :root[data-theme="light"] { --surface: #f3f6fa; }
-html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
-.toolbar { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; gap: 10px; z-index: 10; }
+
+.toolbar { position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; z-index: 10; }
 .toolbar button {
-  font: 600 13px -apple-system, "Segoe UI", Roboto, sans-serif; cursor: pointer;
-  background: var(--surface); border: 1px solid var(--rule); color: var(--text);
+  font: 600 13px Arial, Helvetica, sans-serif; cursor: pointer;
+  background: var(--surface); border: 1px solid #2d3745; color: #cfd8e3;
   transition: background .15s ease, color .15s ease, border-color .15s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,.12);
 }
-.toolbar button:hover { background: var(--bg); }
-.pdf-btn { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; }
-.theme-toggle {
-  width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-}
-.toolbar svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-/* default (dark background): show the sun icon, meaning "click for light" */
+.toolbar button:hover { background: #fff; color: var(--text); }
+.pdf-btn { display: flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px; }
+.theme-toggle { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.toolbar svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .theme-toggle .sun { display: block; }
 .theme-toggle .moon { display: none; }
+:root[data-theme="light"] .toolbar button { color: var(--text); border-color: var(--rule); }
 :root[data-theme="light"] .theme-toggle .sun { display: none; }
 :root[data-theme="light"] .theme-toggle .moon { display: block; }
-/* the toolbar sits on the page background (not the card), so only its own
-   border/icon/text color needs to flip for contrast -- not the card or its text */
-.toolbar button { color: #cfd8e3; border-color: #2d3745; }
-:root[data-theme="light"] .toolbar button { color: var(--text); border-color: var(--rule); }
 @media print { .toolbar { display: none; } }
+
 body {
   margin: 0;
   background: var(--surface);
   color: var(--text);
-  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
-  -webkit-text-size-adjust: 100%;
+  font-family: Arial, Helvetica, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
 }
-a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { text-decoration-thickness: 2px; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+a { color: var(--link); }
 
-.page { position: relative; max-width: 860px; margin: 24px auto; padding: 48px 24px 72px; background: var(--bg); box-shadow: 0 1px 3px rgba(28,36,48,.08), 0 8px 24px rgba(28,36,48,.06); border-radius: 10px; }
+.page { position: relative; max-width: 850px; margin: 20px auto; padding: 36px 44px 48px; background: var(--bg); box-shadow: 0 1px 3px rgba(28,36,48,.08), 0 8px 24px rgba(28,36,48,.06); border-radius: 6px; }
 
-header { padding-bottom: 20px; border-bottom: 2px solid var(--accent); }
-h1 {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-  font-size: clamp(2rem, 6vw, 2.9rem);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--accent);
-}
-.headline { margin: 10px 0 0; font-weight: 600; }
-.contact { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 20px; color: var(--muted); font-size: 0.95rem; }
+header { text-align: center; padding-bottom: 10px; }
+h1 { margin: 0; font-size: 1.9rem; font-weight: 700; letter-spacing: .02em; color: var(--accent); text-transform: uppercase; }
+.contact { margin: 4px 0 0; font-size: 0.85rem; }
+.contact a { color: var(--link); }
+.contact span.sep { margin: 0 6px; }
+.headline { margin: 4px 0 0; font-weight: 700; font-size: 0.85rem; }
 
-section { margin-top: 36px; }
+section { margin-top: 12px; }
 h2 {
-  margin: 0 0 14px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--rule);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--accent);
+  margin: 0 0 6px; padding-bottom: 2px; border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem; font-weight: 700; letter-spacing: .03em; color: var(--accent); text-transform: uppercase;
 }
 .profile { margin: 0; }
-.profile-row { display: grid; grid-template-columns: 170px 1fr; gap: 4px 28px; }
 
-.entry { display: grid; grid-template-columns: 170px 1fr; gap: 4px 28px; padding: 14px 0; }
-.entry + .entry { border-top: 1px solid var(--rule); }
-.when { color: var(--muted); font-size: 0.92rem; padding-top: 3px; }
-.when .where { display: block; }
-h3 { margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 1.35; }
-.org { margin: 2px 0 8px; color: var(--muted); font-style: italic; }
-ul { margin: 0; padding-left: 1.15rem; }
-li { margin: 0 0 6px; }
+.entry { padding: 5px 0; }
+.entry + .entry { margin-top: 4px; }
+h3 { margin: 0; font-size: 0.95rem; font-weight: 700; display: inline; }
+.org-inline { font-style: italic; font-weight: 400; font-size: 0.95rem; }
+.meta { margin: 0 0 3px; color: var(--muted); font-style: italic; font-size: 0.82rem; }
+ul { margin: 2px 0 0; padding-left: 1.1rem; }
+li { margin: 0 0 2px; }
 li:last-child { margin-bottom: 0; }
+.note { margin: 1px 0 0; color: var(--muted); font-style: italic; font-size: 0.85rem; }
 
-.edu .entry { padding: 12px 0; }
-.note { margin: 6px 0 0; color: var(--muted); font-style: italic; max-width: 72ch; }
+.skills p { margin: 0 0 3px; }
+.skills b { font-weight: 700; }
 
-.skills { margin: 0; display: grid; grid-template-columns: 240px 1fr; gap: 8px 28px; }
-.skills dt { font-weight: 700; }
-.skills dd { margin: 0; max-width: 72ch; }
-
-.recognition { list-style: none; padding: 0; }
-.recognition li { padding: 8px 0; border-top: 1px solid var(--rule); margin: 0; max-width: none; }
-.recognition li:first-child { border-top: 0; }
+.recognition { list-style: none; padding: 0; margin: 0; }
+.recognition li { padding: 3px 0; }
 .recognition b { font-weight: 700; }
 .recognition span { color: var(--muted); }
 
-footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
-
 @media (max-width: 640px) {
-  .page { padding: 32px 18px 56px; }
-  .toolbar { position: static; justify-content: flex-end; margin-bottom: 16px; }
+  .page { padding: 24px 18px 40px; }
+  .toolbar { position: static; justify-content: flex-end; margin-bottom: 14px; }
   .pdf-btn span { display: none; }
-  .entry { grid-template-columns: 1fr; gap: 2px; }
-  .when { order: 2; padding: 0 0 6px; }
-  .when .where { display: inline; }
-  .when .where::after { content: ", "; }
-  .skills { grid-template-columns: 1fr; gap: 2px; }
-  .skills dd { margin-bottom: 10px; }
-  .profile-row { grid-template-columns: 1fr; }
 }
 
-@page { margin: 0.45in; }
+@page { margin: 0.5in; }
 @media print {
-  :root {
-    --bg: #fff; --surface: #fff; --text: #000; --muted: #444; --rule: #bbb; --accent: #1f4e79; --link: #1f4e79;
-  }
-  body { font-size: 11px; line-height: 1.32; }
-  h1 { font-size: 1.7rem; }
-  .headline { font-size: 0.85rem; }
-  header { padding-bottom: 10px; }
-  .contact { margin-top: 6px; font-size: 0.8rem; gap: 2px 14px; }
-  h2 { font-size: 1.05rem; margin-bottom: 8px; padding-bottom: 3px; }
+  :root { --bg: #fff; --surface: #fff; }
   .page { padding: 0; max-width: none; margin: 0; box-shadow: none; border-radius: 0; }
-  /* the live site intentionally stretches these to the full card width, but
-     that makes printed lines span the whole physical page -- cap them back
-     to a normal resume column width for print only */
-  .profile, li, .org { max-width: 60ch; }
-  section { margin-top: 12px; }
-  .entry { padding: 5px 0; }
-  li { margin-bottom: 3px; }
-  .org { margin: 1px 0 4px; }
-  .skills { gap: 4px 20px; }
-  .recognition li { padding: 4px 0; }
-  /* avoid-page on whole multi-entry sections (e.g. Key Initiatives, Professional
-     Experience) forces the ENTIRE section to the next page the moment it
-     doesn't fully fit, leaving a large blank gap behind it -- only guard
-     against splitting a single entry awkwardly mid-bullet instead */
   .entry { break-inside: avoid; }
-  a { text-decoration: none; }
 }
 </style>
 </head>
@@ -172,51 +110,38 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 
   <header>
     <h1>Luna Issaias Sbahtu</h1>
-    <p class="headline">M.S. Data Science, Arizona State University &middot; Mastercard Foundation Scholar &middot; Graduating December 2026</p>
-    <ul class="contact">
-      <li><a href="mailto:lsbahtu@asu.edu">lsbahtu@asu.edu</a></li>
-      <li><a href="tel:+14807034463">480-703-4463</a></li>
-      <li>Tempe, AZ</li>
-      <li><a href="https://www.linkedin.com/in/luna-sbahtu" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-      <li><a href="https://github.com/lunaesayassbhatu" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-    </ul>
+    <p class="contact">
+      <a href="mailto:lsbahtu@asu.edu">lsbahtu@asu.edu</a><span class="sep">&middot;</span>480-703-4463<span class="sep">&middot;</span>Tempe, AZ<span class="sep">&middot;</span><a href="https://www.linkedin.com/in/luna-sbahtu" target="_blank" rel="noopener noreferrer">LinkedIn</a><span class="sep">&middot;</span><a href="https://github.com/lunaesayassbhatu" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+    <p class="headline">M.S. Data Science &middot; Arizona State University &middot; Mastercard Foundation Scholar &middot; Graduating December 2026</p>
   </header>
 
   <section aria-labelledby="profile">
     <h2 id="profile">Profile</h2>
-    <div class="profile-row">
-      <div></div>
-      <p class="profile">Data scientist and people analytics professional with 5 years of progressive experience building data systems, machine learning models, and AI-powered workflows for international organizations and development initiatives. Currently completing an M.S. in Data Science at Arizona State University as a Mastercard Foundation Scholar. Founder of the Emadya Project, which I established in 2021 with USAID and YALI support, training 200+ women including refugees in digital skills across East Africa. YALI East Africa alumna and co-founder of Aspire Pan Africa Training and Consultancy.</p>
-    </div>
+    <p class="profile">Data scientist and people analytics professional with 5 years of progressive experience building data systems, machine learning models, and AI-powered workflows for international organizations and development initiatives. Currently completing an M.S. in Data Science at Arizona State University as a Mastercard Foundation Scholar. Founder of the Emadya Project, which I established in 2021 with USAID and YALI support, training 200+ women including refugees in digital skills across East Africa. YALI East Africa alumna and co-founder of Aspire Pan Africa Training and Consultancy.</p>
   </section>
 
   <section aria-labelledby="initiatives">
     <h2 id="initiatives">Key Initiatives</h2>
 
     <article class="entry">
-      <div class="when"><span class="where">Ethiopia</span>2021 to Present</div>
-      <div>
-        <h3>Founder and Field Coordinator</h3>
-        <p class="org">Emadya Project, USAID and YALI supported</p>
-        <ul>
-          <li>In 2021 I founded the Emadya Project with USAID and YALI support, training over 200 women including refugees in digital skills and financial literacy, designing workforce skills assessment frameworks, data pipelines, and impact measurement systems for international donors.</li>
-          <li>Built automated reporting systems and data quality validation frameworks tracking programme outcomes across three geographically distributed sites.</li>
-          <li>Translated complex data findings into clear reports and presentations for senior institutional donors including USAID and YALI.</li>
-        </ul>
-      </div>
+      <h3>Founder and Field Coordinator</h3> <span class="org-inline">| Emadya Project, USAID and YALI supported</span>
+      <p class="meta">Ethiopia &nbsp;&middot;&nbsp; 2021 to Present</p>
+      <ul>
+        <li>Founded the Emadya Project in 2021 with USAID and YALI support, training 200+ women including refugees in digital skills and financial literacy, and designing skills assessment frameworks and impact measurement systems for international donors.</li>
+        <li>Built automated reporting and data quality validation frameworks tracking programme outcomes across three geographically distributed sites.</li>
+        <li>Translated complex data findings into reports and presentations for senior donors including USAID and YALI.</li>
+      </ul>
     </article>
 
     <article class="entry">
-      <div class="when"><span class="where">East Africa</span>2023 to Present</div>
-      <div>
-        <h3>Co-Founder and Lead Data Scientist</h3>
-        <p class="org">Aspire Pan Africa Training and Consultancy</p>
-        <ul>
-          <li>In 2023 I co-founded Aspire Pan Africa following my YALI fellowship, securing funding from local NGOs and applying for UN funding to support programme delivery across East Africa.</li>
-          <li>Designed analytics pipelines, performance monitoring dashboards, and organizational data systems tracking programme delivery across multiple countries.</li>
-          <li>Produced knowledge briefs and impact reports translating complex data into actionable recommendations for NGO funders and UN funding bodies.</li>
-        </ul>
-      </div>
+      <h3>Co-Founder and Lead Data Scientist</h3> <span class="org-inline">| Aspire Pan Africa Training and Consultancy</span>
+      <p class="meta">East Africa &nbsp;&middot;&nbsp; 2023 to Present</p>
+      <ul>
+        <li>Co-founded Aspire Pan Africa in 2023 following my YALI fellowship, securing local NGO funding and applying for UN funding to support programme delivery across East Africa.</li>
+        <li>Designed analytics pipelines, monitoring dashboards, and organizational data systems tracking programme delivery across multiple countries.</li>
+        <li>Produced knowledge briefs and impact reports for NGO funders and UN funding bodies.</li>
+      </ul>
     </article>
   </section>
 
@@ -224,57 +149,45 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
     <h2 id="experience">Professional Experience</h2>
 
     <article class="entry">
-      <div class="when"><span class="where">Hybrid</span>Aug 2026 to Present</div>
-      <div>
-        <h3>Software Engineer (Full-Stack Developer)</h3>
-        <p class="org">ASU Learning Engineering Institute</p>
-        <ul>
-          <li>Design and build full-stack web application features that teach students how to use generative AI effectively and responsibly through interactive learning modules.</li>
-          <li>Develop game-based features that give students hands-on practice and feedback, making GenAI learning more engaging.</li>
-          <li>Build front-end interfaces and back-end services that deliver module content to students, as part of an on-campus, hybrid team.</li>
-        </ul>
-      </div>
+      <h3>Software Engineer (Full-Stack Developer)</h3> <span class="org-inline">| ASU Learning Engineering Institute</span>
+      <p class="meta">Hybrid &nbsp;&middot;&nbsp; Aug 2026 to Present</p>
+      <ul>
+        <li>Build full-stack web application features that teach students to use generative AI effectively through interactive learning modules.</li>
+        <li>Develop game-based features giving students hands-on practice and feedback.</li>
+        <li>Build front-end interfaces and back-end services delivering module content, as part of an on-campus, hybrid team.</li>
+      </ul>
     </article>
 
     <article class="entry">
-      <div class="when"><span class="where">Remote</span>June 2026 to November 2026</div>
-      <div>
-        <h3>People Analytics and AI Intern</h3>
-        <p class="org">UNFPA, United Nations Population Fund</p>
-        <ul>
-          <li>Reconciled two disconnected HR datasets totaling 46,000+ rows across 169 offices worldwide, resolving data quality issues and building a point-in-time attrition methodology using SQL string parsing in PostgreSQL.</li>
-          <li>Building machine learning models including logistic regression, XGBoost, and survival analysis (Kaplan-Meier and Cox proportional hazard) to predict workforce attrition and identify key drivers across global offices.</li>
-          <li>Maintaining and enhancing Power BI dashboards tracking global workforce KPIs, translating complex workforce data into actionable insights for senior HR leadership.</li>
-          <li>Deploying AI tools including Gemini and Claude to automate HR reporting workflows and improve efficiency across global HR operations.</li>
-          <li>Drafting briefing notes and technical presentations translating complex workforce analytics into strategic recommendations for non-technical HR partners.</li>
-        </ul>
-      </div>
+      <h3>People Analytics and AI Intern</h3> <span class="org-inline">| UNFPA, United Nations Population Fund</span>
+      <p class="meta">Remote &nbsp;&middot;&nbsp; June 2026 to November 2026</p>
+      <ul>
+        <li>Reconciled two disconnected HR datasets totaling 46,000+ rows across 169 offices worldwide, resolving data quality issues and building a point-in-time attrition methodology using SQL string parsing in PostgreSQL.</li>
+        <li>Building ML models including logistic regression, XGBoost, and survival analysis (Kaplan-Meier, Cox) to predict workforce attrition and identify key drivers.</li>
+        <li>Maintaining Power BI dashboards tracking global workforce KPIs for senior HR leadership.</li>
+        <li>Deploying Gemini and Claude to automate HR reporting workflows and improve efficiency.</li>
+        <li>Drafting briefing notes translating workforce analytics into recommendations for non-technical HR partners.</li>
+      </ul>
     </article>
 
     <article class="entry">
-      <div class="when"><span class="where">Austin, TX</span>May 2026 to Aug 2026</div>
-      <div>
-        <h3>Data Science Intern</h3>
-        <p class="org">Big Data Management Services</p>
-        <ul>
-          <li>Applied Python, SQL, and machine learning to analyze energy sector data and build data-driven solutions for capacity planning and operational optimization.</li>
-          <li>Developed predictive models and data pipelines supporting evidence-based decision making for energy sector clients.</li>
-          <li>Built data visualizations and analytical reports communicating findings to both technical and non-technical stakeholders.</li>
-        </ul>
-      </div>
+      <h3>Data Science Intern</h3> <span class="org-inline">| Big Data Management Services</span>
+      <p class="meta">Austin, TX &nbsp;&middot;&nbsp; May 2026 to Aug 2026</p>
+      <ul>
+        <li>Applied Python, SQL, and machine learning to analyze energy sector data for capacity planning and operational optimization.</li>
+        <li>Developed predictive models and data pipelines supporting evidence-based decisions for energy sector clients.</li>
+        <li>Built data visualizations and reports communicating findings to technical and non-technical stakeholders.</li>
+      </ul>
     </article>
 
     <article class="entry">
-      <div class="when"><span class="where">East Africa</span>2021 to 2023</div>
-      <div>
-        <h3>Information Technology Officer</h3>
-        <p class="org">Aspire Africa</p>
-        <ul>
-          <li>Managed the organization's IT systems, including computers, networks, software, and user accounts, keeping day-to-day operations running reliably.</li>
-          <li>Provided technical support and digital skills guidance to staff and programme participants.</li>
-          <li>Supported programme delivery with data collection, record keeping, and reporting tools, laying the groundwork for later analytics and dashboard work.</li>
-        </ul>
-      </div>
+      <h3>Information Technology Officer</h3> <span class="org-inline">| Aspire Africa</span>
+      <p class="meta">East Africa &nbsp;&middot;&nbsp; 2021 to 2023</p>
+      <ul>
+        <li>Managed IT systems, including computers, networks, software, and user accounts, keeping operations running reliably.</li>
+        <li>Provided technical support and digital skills guidance to staff and programme participants.</li>
+        <li>Supported programme delivery with data collection and reporting tools, laying groundwork for later analytics work.</li>
+      </ul>
     </article>
   </section>
 
@@ -282,46 +195,34 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
     <h2 id="education">Education</h2>
 
     <article class="entry">
-      <div class="when">2025 to 2026<br>Graduating December 2026</div>
-      <div>
-        <h3>M.S., Data Science, Analytics and Engineering</h3>
-        <p class="org">Arizona State University</p>
-        <p class="note">Mastercard Foundation Scholar. Coursework: Statistical Machine Learning, Data Mining, Data Visualization, Distributed Databases, AI Systems, Data-Driven Optimization</p>
-      </div>
+      <h3>M.S., Data Science, Analytics and Engineering</h3> <span class="org-inline">| Arizona State University</span>
+      <p class="meta">2025 to 2026 &nbsp;&middot;&nbsp; Graduating December 2026</p>
+      <p class="note">Mastercard Foundation Scholar. Coursework: Statistical Machine Learning, Data Mining, Data Visualization, Distributed Databases, AI Systems, Data-Driven Optimization</p>
     </article>
 
     <article class="entry">
-      <div class="when">2014 to 2019</div>
-      <div>
-        <h3>B.S., Computer Science</h3>
-        <p class="org">Eritrea Institute of Technology &mdash; Graduated with Distinction</p>
-      </div>
+      <h3>B.S., Computer Science</h3> <span class="org-inline">| Eritrea Institute of Technology</span>
+      <p class="meta">2014 to 2019</p>
+      <p class="note">Graduated with Distinction</p>
     </article>
   </section>
 
-  <section aria-labelledby="skills">
+  <section aria-labelledby="skills" class="skills">
     <h2 id="skills">Technical Skills</h2>
-    <dl class="skills">
-      <dt>People Analytics and HR Tools</dt>
-      <dd>Power BI, workforce KPI dashboards, employee survey analysis, HR data quality and governance, skills assessment frameworks</dd>
-      <dt>Machine Learning and AI</dt>
-      <dd>Python (scikit-learn, XGBoost, PyTorch, pandas, NumPy), survival analysis (lifelines), anomaly detection, predictive modeling, R, SQL</dd>
-      <dt>Generative AI and Automation</dt>
-      <dd>Gemini, Claude, OpenAI API, prompt engineering, AI-powered workflow automation</dd>
-      <dt>Data Visualization</dt>
-      <dd>Power BI, Tableau, HTML/CSS/JavaScript dashboards, Python (matplotlib, seaborn), data storytelling</dd>
-      <dt>Languages</dt>
-      <dd>English (Fluent), Amharic (Fluent), Tigrinya (Native), Arabic (Reading and Writing)</dd>
-    </dl>
+    <p><b>People Analytics and HR Tools:</b> Power BI, workforce KPI dashboards, employee survey analysis, HR data quality and governance, skills assessment frameworks</p>
+    <p><b>Machine Learning and AI:</b> Python (scikit-learn, XGBoost, PyTorch, pandas, NumPy), survival analysis (lifelines), anomaly detection, predictive modeling, R, SQL</p>
+    <p><b>Generative AI and Automation:</b> Gemini, Claude, OpenAI API, prompt engineering, AI-powered workflow automation</p>
+    <p><b>Data Visualization:</b> Power BI, Tableau, HTML/CSS/JavaScript dashboards, Python (matplotlib, seaborn), data storytelling</p>
+    <p><b>Languages:</b> English (Fluent), Amharic (Fluent), Tigrinya (Native), Arabic (Reading and Writing)</p>
   </section>
 
   <section aria-labelledby="recognition">
     <h2 id="recognition">Recognition</h2>
     <ul class="recognition">
-      <li><b>People Analytics and AI Intern</b> <span>UNFPA, United Nations Population Fund, June 2026</span></li>
-      <li><b>YALI (Young African Leaders Initiative) East Africa Alumni</b> <span>USAID, July 2023</span></li>
-      <li><b>Mastercard Foundation Scholar</b> <span>Full tuition and living support, Arizona State University, 2025 to 2026</span></li>
-      <li><b>B.S. Computer Science With Distinction</b> <span>Eritrea Institute of Technology, 2019</span></li>
+      <li><b>People Analytics and AI Intern</b> &nbsp;<span>UNFPA, United Nations Population Fund, June 2026</span></li>
+      <li><b>YALI (Young African Leaders Initiative) East Africa Alumni</b> &nbsp;<span>USAID, July 2023</span></li>
+      <li><b>Mastercard Foundation Scholar</b> &nbsp;<span>Full tuition and living support, Arizona State University, 2025 to 2026</span></li>
+      <li><b>B.S. Computer Science With Distinction</b> &nbsp;<span>Eritrea Institute of Technology, 2019</span></li>
     </ul>
   </section>
 
@@ -338,7 +239,6 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
   if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
 
   btn.addEventListener('click', function () {
-    // dark is the baseline default (no attribute set) -- "light" is the only explicit state
     var isLight = root.getAttribute('data-theme') === 'light';
     var next = isLight ? 'dark' : 'light';
     root.setAttribute('data-theme', next);
