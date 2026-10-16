@@ -18,8 +18,34 @@
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161b22; --surface: #0d1117; --text: #e6edf3; --muted: #9aa7b5;
+    --rule: #2d3745; --accent: #6fa8dc; --link: #7cc1ff; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161b22; --surface: #0d1117; --text: #e6edf3; --muted: #9aa7b5;
+  --rule: #2d3745; --accent: #6fa8dc; --link: #7cc1ff; color-scheme: dark;
+}
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
+.theme-toggle {
+  position: fixed; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
+  background: var(--surface); border: 1px solid var(--rule); color: var(--text);
+  transition: background .15s ease, color .15s ease; box-shadow: 0 1px 3px rgba(0,0,0,.12);
+}
+.theme-toggle svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .sun { display: none; }
+.theme-toggle .moon { display: block; }
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+}
+@media print { .theme-toggle { display: none; } }
 body {
   margin: 0;
   background: var(--surface);
@@ -109,6 +135,10 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 </style>
 </head>
 <body>
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+  <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+</button>
 <main class="page">
 
   <header>
@@ -235,8 +265,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
       <div class="when">2014 to 2019</div>
       <div>
         <h3>B.S., Computer Science</h3>
-        <p class="org">Eritrea Institute of Technology</p>
-        <p class="note">Graduated with Distinction</p>
+        <p class="org">Eritrea Institute of Technology &mdash; Graduated with Distinction</p>
       </div>
     </article>
   </section>
@@ -269,5 +298,25 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 
   <footer>Use your browser's print option to save this page as a PDF.</footer>
 </main>
+<script>
+(function () {
+  var KEY = 'resume-theme';
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+
+  btn.addEventListener('click', function () {
+    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var current = root.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+})();
+</script>
 </body>
 </html>
