@@ -59,6 +59,7 @@ h2 {
   color: var(--accent);
 }
 .profile { margin: 0; max-width: 72ch; }
+.profile-row { display: grid; grid-template-columns: 170px 1fr; gap: 4px 28px; }
 
 .entry { display: grid; grid-template-columns: 170px 1fr; gap: 4px 28px; padding: 14px 0; }
 .entry + .entry { border-top: 1px solid var(--rule); }
@@ -93,6 +94,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
   .when .where::after { content: ", "; }
   .skills { grid-template-columns: 1fr; gap: 2px; }
   .skills dd { margin-bottom: 10px; }
+  .profile-row { grid-template-columns: 1fr; }
 }
 
 @media print {
@@ -123,7 +125,10 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 
   <section aria-labelledby="profile">
     <h2 id="profile">Profile</h2>
-    <p class="profile">Data scientist and people analytics professional with 5 years of progressive experience building data systems, machine learning models, and AI-powered workflows for international organizations and development initiatives. Currently completing an M.S. in Data Science at Arizona State University as a Mastercard Foundation Scholar. Founder of the Emadya Project, which I established in 2021 with USAID and YALI support, training 200+ women including refugees in digital skills across East Africa. YALI East Africa alumna and co-founder of Aspire Pan Africa Training and Consultancy.</p>
+    <div class="profile-row">
+      <div></div>
+      <p class="profile">Data scientist and people analytics professional with 5 years of progressive experience building data systems, machine learning models, and AI-powered workflows for international organizations and development initiatives. Currently completing an M.S. in Data Science at Arizona State University as a Mastercard Foundation Scholar. Founder of the Emadya Project, which I established in 2021 with USAID and YALI support, training 200+ women including refugees in digital skills across East Africa. YALI East Africa alumna and co-founder of Aspire Pan Africa Training and Consultancy.</p>
+    </div>
   </section>
 
   <section aria-labelledby="initiatives">
