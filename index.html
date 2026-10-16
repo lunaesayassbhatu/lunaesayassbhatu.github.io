@@ -130,12 +130,19 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
   :root {
     --bg: #fff; --surface: #fff; --text: #000; --muted: #444; --rule: #bbb; --accent: #1f4e79; --link: #1f4e79;
   }
+  body { font-size: 12.5px; line-height: 1.4; }
+  h1 { font-size: 2rem; }
   .page { padding: 0; max-width: none; margin: 0; box-shadow: none; border-radius: 0; }
   /* the live site intentionally stretches these to the full card width, but
      that makes printed lines span the whole physical page -- cap them back
      to a normal resume column width for print only */
   .profile, li, .org { max-width: 60ch; }
-  section { break-inside: avoid-page; }
+  section { margin-top: 20px; }
+  .entry { padding: 8px 0; }
+  /* avoid-page on whole multi-entry sections (e.g. Key Initiatives, Professional
+     Experience) forces the ENTIRE section to the next page the moment it
+     doesn't fully fit, leaving a large blank gap behind it -- only guard
+     against splitting a single entry awkwardly mid-bullet instead */
   .entry { break-inside: avoid; }
   a { text-decoration: none; }
 }
