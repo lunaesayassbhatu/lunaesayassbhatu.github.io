@@ -126,19 +126,28 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
   .profile-row { grid-template-columns: 1fr; }
 }
 
+@page { margin: 0.45in; }
 @media print {
   :root {
     --bg: #fff; --surface: #fff; --text: #000; --muted: #444; --rule: #bbb; --accent: #1f4e79; --link: #1f4e79;
   }
-  body { font-size: 12.5px; line-height: 1.4; }
-  h1 { font-size: 2rem; }
+  body { font-size: 11px; line-height: 1.32; }
+  h1 { font-size: 1.7rem; }
+  .headline { font-size: 0.85rem; }
+  header { padding-bottom: 10px; }
+  .contact { margin-top: 6px; font-size: 0.8rem; gap: 2px 14px; }
+  h2 { font-size: 1.05rem; margin-bottom: 8px; padding-bottom: 3px; }
   .page { padding: 0; max-width: none; margin: 0; box-shadow: none; border-radius: 0; }
   /* the live site intentionally stretches these to the full card width, but
      that makes printed lines span the whole physical page -- cap them back
      to a normal resume column width for print only */
   .profile, li, .org { max-width: 60ch; }
-  section { margin-top: 20px; }
-  .entry { padding: 8px 0; }
+  section { margin-top: 12px; }
+  .entry { padding: 5px 0; }
+  li { margin-bottom: 3px; }
+  .org { margin: 1px 0 4px; }
+  .skills { gap: 4px 20px; }
+  .recognition li { padding: 4px 0; }
   /* avoid-page on whole multi-entry sections (e.g. Key Initiatives, Professional
      Experience) forces the ENTIRE section to the next page the moment it
      doesn't fully fit, leaving a large blank gap behind it -- only guard
