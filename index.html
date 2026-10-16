@@ -7,7 +7,7 @@
 <style>
 :root {
   --bg: #ffffff;
-  --surface: #f3f6fa;
+  --surface: #0d1b2e;
   --text: #1c2430;
   --muted: #5b6676;
   --rule: #cfd8e3;
@@ -18,12 +18,10 @@
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-/* Dark mode only darkens the outer page background -- the resume content
-   card, its text, and all accent colors stay exactly as in light mode. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --surface: #0d1b2e; }
-}
-:root[data-theme="dark"] { --surface: #0d1b2e; }
+/* Dark mode is the default outer-page background; light is the explicit
+   opt-out. Either way, only the outer background changes -- the resume
+   content card, its text, and all accent colors stay the same. */
+:root[data-theme="light"] { --surface: #f3f6fa; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
 .toolbar { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; gap: 10px; z-index: 10; }
@@ -39,18 +37,15 @@ html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
 }
 .toolbar svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.theme-toggle .sun { display: none; }
-.theme-toggle .moon { display: block; }
-:root[data-theme="dark"] .theme-toggle .sun { display: block; }
-:root[data-theme="dark"] .theme-toggle .moon { display: none; }
+/* default (dark background): show the sun icon, meaning "click for light" */
+.theme-toggle .sun { display: block; }
+.theme-toggle .moon { display: none; }
+:root[data-theme="light"] .theme-toggle .sun { display: none; }
+:root[data-theme="light"] .theme-toggle .moon { display: block; }
 /* the toolbar sits on the page background (not the card), so only its own
    border/icon/text color needs to flip for contrast -- not the card or its text */
-:root[data-theme="dark"] .toolbar button { color: #cfd8e3; border-color: #2d3745; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
-  :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
-  :root:not([data-theme="light"]) .toolbar button { color: #cfd8e3; border-color: #2d3745; }
-}
+.toolbar button { color: #cfd8e3; border-color: #2d3745; }
+:root[data-theme="light"] .toolbar button { color: var(--text); border-color: var(--rule); }
 @media print { .toolbar { display: none; } }
 body {
   margin: 0;
@@ -327,9 +322,9 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
   if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
 
   btn.addEventListener('click', function () {
-    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var current = root.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
-    var next = current === 'dark' ? 'light' : 'dark';
+    // dark is the baseline default (no attribute set) -- "light" is the only explicit state
+    var isLight = root.getAttribute('data-theme') === 'light';
+    var next = isLight ? 'dark' : 'light';
     root.setAttribute('data-theme', next);
     try { localStorage.setItem(KEY, next); } catch (e) {}
   });
