@@ -26,26 +26,32 @@
 :root[data-theme="dark"] { --surface: #0d1117; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
-.theme-toggle {
-  position: fixed; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
+.toolbar { position: fixed; top: 16px; right: 16px; display: flex; align-items: center; gap: 10px; z-index: 10; }
+.toolbar button {
+  font: 600 13px -apple-system, "Segoe UI", Roboto, sans-serif; cursor: pointer;
   background: var(--surface); border: 1px solid var(--rule); color: var(--text);
-  transition: background .15s ease, color .15s ease; box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12);
 }
-.theme-toggle svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.toolbar button:hover { background: var(--bg); }
+.pdf-btn { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; }
+.theme-toggle {
+  width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.toolbar svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .theme-toggle .sun { display: none; }
 .theme-toggle .moon { display: block; }
 :root[data-theme="dark"] .theme-toggle .sun { display: block; }
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
-/* the button sits on the page background (not the card), so only its own
-   border/icon color needs to flip for contrast -- not the card or its text */
-:root[data-theme="dark"] .theme-toggle { color: #cfd8e3; border-color: #2d3745; }
+/* the toolbar sits on the page background (not the card), so only its own
+   border/icon/text color needs to flip for contrast -- not the card or its text */
+:root[data-theme="dark"] .toolbar button { color: #cfd8e3; border-color: #2d3745; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
   :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
-  :root:not([data-theme="light"]) .theme-toggle { color: #cfd8e3; border-color: #2d3745; }
+  :root:not([data-theme="light"]) .toolbar button { color: #cfd8e3; border-color: #2d3745; }
 }
-@media print { .theme-toggle { display: none; } }
+@media print { .toolbar { display: none; } }
 body {
   margin: 0;
   background: var(--surface);
@@ -135,10 +141,16 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
 </style>
 </head>
 <body>
-<button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
-  <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
-  <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-</button>
+<div class="toolbar">
+  <button type="button" class="pdf-btn" id="pdfBtn" title="Download as PDF">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M12 15l-4.5-4.5M12 15l4.5-4.5"/><path d="M4 18v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg>
+    Download PDF
+  </button>
+  <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</div>
 <main class="page">
 
   <header>
@@ -318,6 +330,11 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
     root.setAttribute('data-theme', next);
     try { localStorage.setItem(KEY, next); } catch (e) {}
   });
+})();
+(function () {
+  var pdfBtn = document.getElementById('pdfBtn');
+  if (!pdfBtn) return;
+  pdfBtn.addEventListener('click', function () { window.print(); });
 })();
 </script>
 </body>
