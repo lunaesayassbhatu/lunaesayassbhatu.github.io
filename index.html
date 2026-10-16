@@ -22,7 +22,7 @@ html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--surface);
   color: var(--text);
   font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
@@ -33,7 +33,7 @@ a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3
 a:hover { text-decoration-thickness: 2px; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
-.page { max-width: 860px; margin: 0 auto; padding: 48px 24px 72px; }
+.page { max-width: 860px; margin: 24px auto; padding: 48px 24px 72px; background: var(--bg); box-shadow: 0 1px 3px rgba(28,36,48,.08), 0 8px 24px rgba(28,36,48,.06); border-radius: 10px; }
 
 header { padding-bottom: 20px; border-bottom: 2px solid var(--accent); }
 h1 {
@@ -101,7 +101,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
   :root {
     --bg: #fff; --surface: #fff; --text: #000; --muted: #444; --rule: #bbb; --accent: #1f4e79; --link: #1f4e79;
   }
-  .page { padding: 0; max-width: none; }
+  .page { padding: 0; max-width: none; margin: 0; box-shadow: none; border-radius: 0; }
   section { break-inside: avoid-page; }
   .entry { break-inside: avoid; }
   a { text-decoration: none; }
